@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Validation Test</title>
+</head>
+<body>
+  <h1>Validation Test Form</h1>
+  <form action="#" method="POST">
+    <!-- Trường hợp 1 -->
+    <label for="case1">Trường hợp 1:</label>
+    <input id="case1" type="text" required value=""><br><br>
+
+    <!-- Trường hợp 2 -->
+    <label for="case2">Trường hợp 2:</label>
+    <input id="case2" type="email" value="abc"><br><br>
+
+    <!-- Trường hợp 3 -->
+    <label for="case3">Trường hợp 3:</label>
+    <input id="case3" type="number" min="1" max="10" value="15"><br><br>
+
+    <!-- Trường hợp 4 -->
+    <label for="case4">Trường hợp 4:</label>
+    <input id="case4" type="text" pattern="[0-9]{10}" value="abc123"><br><br>
+
+    <!-- Trường hợp 5 -->
+    <label for="case5">Trường hợp 5:</label>
+    <input id="case5" type="password" minlength="8" value="123"><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
