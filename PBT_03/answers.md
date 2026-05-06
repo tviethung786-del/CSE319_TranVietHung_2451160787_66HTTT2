@@ -4,6 +4,7 @@
 **Ví dụ:**
 ```html
 <p style="color:red; font-size:20px;">Hello World</p>
+```
 Ưu điểm:
     - Áp dụng nhanh cho một phần tử.
     - Không cần tạo file CSS riêng.
@@ -14,5 +15,4 @@ Nhược điểm:
 Nên dùng:
     - Khi chỉnh nhanh một phần tử.
     - Khi thử nghiệm hoặc sửa lỗi nhỏ.
-```
 ###
