@@ -20,17 +20,18 @@
 
 ### 2. Internal CSS
 **Ví dụ:**
-```<!DOCTYPE html>
-    <html>
-        <head>
-            <style>
-                p{
-                    color: blue;
-                    font-size: 18px;
-                }
-            </style>
-        </head>
-        <body>
+```
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            p{
+                color: blue;
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body>
             <p>Hello World</p>
         </body>
 </html>
@@ -49,7 +50,8 @@
 
 ### 3. External CSS
 **Ví dụ:**
-```<link rel="stylesheet" href="style.css">
+```
+<link rel="stylesheet" href="style.css">
 <p>Hello World</p>
 ```
 **Ưu điểm:**
