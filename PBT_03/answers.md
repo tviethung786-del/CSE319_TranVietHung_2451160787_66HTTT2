@@ -67,3 +67,47 @@
 - Website lớn.
 - Dự án có nhiều trang HTML.
 
+Nếu một element có cả **Inline CSS, Internal CSS và External CSS** cùng áp dụng thì:
+
+**Inline CSS sẽ được ưu tiên cao nhất.**
+
+**Thứ tự ưu tiên của CSS:**
+
+1. Inline CSS  
+2. Internal CSS  
+3. External CSS  
+
+**Giải thích:**  
+Inline CSS được viết trực tiếp trong thẻ HTML bằng thuộc tính `style`, nên nó có độ ưu tiên cao hơn so với CSS trong thẻ `<style>` hoặc file `.css`.
+
+## Câu A2 
+
+1. h1  
+→ Chọn: **ShopTLU**
+
+2. .price  
+→ Chọn:  
+- **25.990.000đ**  
+- **45.990.000đ**
+
+3. #app header  
+→ Chọn: **<header class="top-bar dark"> chứa nội dung: ShopTLU, Home, Products, About**
+
+4. nav a:first-child  
+→ Chọn: **Home**
+
+5. .product.featured h2  
+→ Chọn: **MacBook Pro**
+
+6. article > p  
+→ Chọn:  
+- **25.990.000đ**  
+- **Mô tả sản phẩm...**  
+- **45.990.000đ**  
+- **Mô tả sản phẩm...**
+
+7. a[href="/"]  
+→ Chọn: **Home**
+
+8. .top-bar.dark h1  
+→ Chọn: **ShopTLU**
