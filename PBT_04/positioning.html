@@ -1,73 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-<meta charset="UTF-8">
-<title>Trang thử nghiệm Position</title>
-<link rel="stylesheet" href="positioning.css">
-</head>
-
-<body>
-
-<!-- PHẦN ĐẦU TRANG -->
-<header>
-    <div class="logo">Cửa Hàng Của Tôi</div>
-
-    <nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Positioning Demo</title>
+    <link rel="stylesheet" href="positioning.css" />
+  </head>
+  <body>
+    <!-- 1. Fixed Header -->
+    <header class="header">
+      <div class="logo">Cửa Hàng Của Tôi</div>
+      <nav>
         <a href="#">Trang chủ</a>
         <a href="#">Sản phẩm</a>
         <a href="#">Liên hệ</a>
-    </nav>
-</header>
+      </nav>
+    </header>
 
-
-<div class="container">
-
-    <!-- THANH BÊN -->
-    <aside class="sidebar">
-        <h3>Danh mục</h3>
+    <div class="page">
+      <!-- 2. Sticky Sidebar -->
+      <aside class="sidebar">
+        <strong>Danh mục</strong>
         <ul>
-            <li>Điện thoại</li>
-            <li>Laptop</li>
-            <li>Phụ kiện</li>
-            <li>Gaming</li>
+          <li>Điện thoại</li>
+          <li>Laptop</li>
+          <li>Đồng hồ</li>
+          <li>Phụ kiện</li>
         </ul>
-    </aside>
+      </aside>
 
+      <!-- Main content -->
+      <main class="main">
+        <!-- 3. Product cards với badge HOT -->
+        <div class="product-grid">
+          <div class="card">
+            <div class="card__badge">HOT</div>
+            <div class="card__name">iPhone 15 Pro</div>
+            <div class="card__price">28.990.000đ</div>
+          </div>
 
-    <!-- NỘI DUNG CHÍNH -->
-    <main class="content">
+          <div class="card">
+            <div class="card__badge">HOT</div>
+            <div class="card__name">MacBook Air M3</div>
+            <div class="card__price">32.990.000đ</div>
+          </div>
 
-        <div class="product-card">
-            <div class="badge">HOT</div>
-            <h2>iPhone 15</h2>
-            <p>Điện thoại bán chạy nhất</p>
+          <div class="card">
+            <div class="card__badge">HOT</div>
+            <div class="card__name">AirPods Pro</div>
+            <div class="card__price">6.490.000đ</div>
+          </div>
         </div>
 
-        <div class="product-card">
-            <div class="badge">HOT</div>
-            <h2>MacBook Air</h2>
-            <p>Laptop mỏng nhẹ</p>
+        <div class="extra">
+          <p>Nội dung ví dụ để chứng minh sticky</p>
+          <p>Nội dung ví dụ để chứng minh sticky</p>
+          <p>Nội dung ví dụ để chứng minh sticky</p>
+          <p>Nội dung ví dụ để chứng minh sticky</p>
         </div>
+      </main>
+    </div>
 
-        <div class="product-card">
-            <div class="badge">HOT</div>
-            <h2>AirPods</h2>
-            <p>Tai nghe không dây</p>
-        </div>
-
-        <!-- Tạo nhiều card để có thanh cuộn -->
-        <div class="product-card"><h2>Sản phẩm</h2></div>
-        <div class="product-card"><h2>Sản phẩm</h2></div>
-        <div class="product-card"><h2>Sản phẩm</h2></div>
-        <div class="product-card"><h2>Sản phẩm</h2></div>
-
-    </main>
-
-</div>
-
-
-<!-- NÚT LÊN ĐẦU TRANG -->
-<button class="scroll-top">↑</button>
-
-</body>
+    <!-- 4. Scroll to top button -->
+    <button class="scroll-top">↑</button>
+  </body>
 </html>
