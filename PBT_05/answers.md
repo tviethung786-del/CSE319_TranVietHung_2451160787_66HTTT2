@@ -233,3 +233,320 @@ Tại sao trình duyệt KHÔNG đọc được file `.scss`? Cần bước gì 
 - SCSS (Sassy CSS) là CSS preprocessor — tức là CSS có thêm tính năng lập trình (biến, hàm, lồng nhau, điều kiện). Đây là cú pháp mở rộng, trình duyệt chỉ hiểu CSS thuần, nên không thể đọc trực tiếp file `.scss`.
 
 - Quá trình chuyển đổi: SCSS (code viết) → Compiler (dịch) → CSS (trình duyệt đọc)
+
+# Phần B: Thực hành code
+
+## Bài B3 — SCSS Refactor
+
+- Lệnh compile SCSS → CSS
+
+```bash
+# Cài sass (chưa có)
+npm install -g sass
+
+# Compile file style.scss ra style-compiled.css
+sass scss/style.scss style-compiled.css
+
+# Hoặc watch (tự compile khi lưu)
+sass --watch scss/style.scss style-compiled.css
+
+# Với VS Code: cài extension "Live Sass Compiler" → click "Watch Sass"
+```
+
+# Phần C: Phân tích
+
+## Câu C1 — Phân tích trang web thực
+
+### Mobile (375px)
+
+![ảnh mobile](screenshots/cauC1-mobile.png)
+
+1. Navigation thay đổi thế nào?
+
+- Icon hamburger + kính lúp xuất hiện ở góc trái thay thế menu ngang
+- Logo giữ nguyên ở giữa
+- Góc phải chỉ còn icon user + bell
+- Category bar (Mới nhất, VnE-GO, Thời sự...) chuyển sang dạng scroll ngang, không wrap xuống dòng
+
+2. Lưới content thay đổi mấy cột?
+
+- Chuyển về 1 cột duy nhất
+- Ảnh bài viết chiếm 100% chiều rộng container
+
+3. Elements nào bị ẩn trên mobile?
+
+- Sidebar phải (`.col-right-top`) — ẩn qua `display: none`
+- Menu ngang desktop (thay bằng hamburger)
+
+4. Font size có thay đổi không?
+
+- Có — tiêu đề category nhỏ hơn so với desktop
+- Thanh thời tiết (Hà Nội 30°) và navigation text dùng font size vừa phải, vẫn readable
+
+### Tablet (768px)
+
+![ảnh tablet](screenshots/cauC1-tablet.png)
+
+1. Navigation thay đổi thế nào?
+
+- Vẫn giữ hamburger + kính lúp ở góc trái (giống mobile)
+- Logo giữ nguyên ở giữa, to hơn so với 375px
+- Category bar hiển thị nhiều mục hơn (Mới nhất, VnE-GO, Thời sự, Thế giới, Kinh doanh, Khoa học...)
+- Vẫn scroll ngang, chưa phải full menu ngang như desktop
+
+2. Lưới content thay đổi mấy cột?
+
+- Vẫn 1 cột chính — chưa có sidebar
+- Ảnh hero chiếm toàn bộ chiều rộng
+
+3. Elements nào bị ẩn/hiện so với mobile?
+
+- Ngày âm lịch xuất hiện (ẩn ở 375px, hiện ở 768px)
+- Category bar hiện nhiều mục hơn do có thêm không gian
+
+4. Font size có thay đổi không?
+
+- Có tăng nhẹ — tiêu đề category và text rõ ràng hơn
+- Ảnh hero lớn hơn đáng kể (600px vs ~460px ở mobile)
+- Tổng thể scale theo chiều rộng, không có breakpoint riêng cho tablet
+
+### Desktop (1440px)
+
+![ảnh desktop](screenshots/cauC1-desktop.png)
+
+1. Navigation thay đổi thế nào?
+
+- Hamburger biến mất → menu ngang đầy đủ hiển thị
+- Header có thêm: Địa điểm, thời tiết
+- Góc phải: nút Đăng nhập, icon search, bell — rõ ràng hơn hẳn
+- Category bar hiện toàn bộ danh mục
+
+2. Lưới content thay đổi mấy cột?
+
+- Chuyển sang 2 cột: ảnh trái + tiêu đề/tóm tắt bài viết bên phải
+- `.col-right-top` xuất hiện trở lại (width: 320px, padding-left: 20px)
+- Layout dùng Flexbox (`container flexbox`)
+
+3. Elements xuất hiện lại ở Desktop
+
+- Sidebar phải (`.col-right-top`) — width: 320px
+- Thông tin địa điểm + thời tiết trên header
+- Nút Đăng nhập text (mobile chỉ có icon)
+- Toàn bộ category không cần scroll ngang
+
+4. Font size có thay đổi không?
+
+- Tăng rõ rệt — tiêu đề bài viết to và đậm hơn hẳn
+
+![ảnh media](screenshots/cauC1-media.png)
+
+## Câu C2 — Thiết kế Responsive Strategy
+
+## MOBILE (375px)
+
+```
++-----------------------------+
+| ☰  LOGO              [📞]  |
++-----------------------------+
+|                             |
+|         HERO IMAGE          |
+|                             |
++-----------------------------+
+|   [Anh 1]   |   [Anh 2]    |
++-------------+---------------+
+|   [Anh 3]   |   [Anh 4]    |
++-------------+---------------+
+|   [Anh 5]   |   [Anh 6]    |
++-----------------------------+
+|                             |
+|  FORM DAT BAN               |
+|  +------------------------+ |
+|  | Ngay                   | |
+|  +------------------------+ |
+|  | Gio                    | |
+|  +------------------------+ |
+|  | So nguoi               | |
+|  +------------------------+ |
+|  | Ghi chu                | |
+|  |                        | |
+|  +------------------------+ |
+|                             |
+|   [    DAT BAN NGAY    ]    |
+|                             |
++-----------------------------+
+|                             |
+|       GOOGLE MAPS           |
+|                             |
++-----------------------------+
+|           FOOTER            |
++-----------------------------+
+```
+
+Ẩn trên mobile:
+
+- Nav links (thay bằng ☰ hamburger)
+- Sidebar thông tin
+- Số điện thoại dạng text (chỉ icon 📞)
+
+## TABLET (768px)
+
+```
++---------------------------------------------+
+| ☰  LOGO                   📞 0901 234 567  |
++---------------------------------------------+
+|                                             |
+|                HERO IMAGE                   |
+|                                             |
++---------------+---------------+-------------+
+|   [Anh 1]     |   [Anh 2]     |   [Anh 3]  |
++---------------+---------------+-------------+
+|   [Anh 4]     |   [Anh 5]     |   [Anh 6]  |
++---------------------+-----------------------+
+|  FORM DAT BAN       |                       |
+|  +-----------------+|   GOOGLE MAPS         |
+|  | Ngay            ||                       |
+|  +-----------------+|                       |
+|  | Gio             ||                       |
+|  +-----------------+|                       |
+|  | So nguoi        ||                       |
+|  +-----------------+|                       |
+|  | Ghi chu         ||                       |
+|  |                 ||                       |
+|  +-----------------+|                       |
+|  [ DAT BAN NGAY ]   |                       |
++---------------------+-----------------------+
+|                   FOOTER                    |
++---------------------------------------------+
+```
+
+- Grid ảnh: 2 cột → 3 cột
+- Form + Bản đồ: dọc → nằm cạnh nhau (2 cột)
+- Bản đồ: nằm bên phải form, cùng chiều cao
+- Số điện thoại hiện text đầy đủ
+
+## DESKTOP (1440px)
+
+```
++----------------------------------------------------------------+
+| LOGO    Trang chu   Menu   Lien he         📞 0901 234 567     |
++----------------------------------------------------------------+
+|                                                                |
+|                        HERO IMAGE                              |
+|                                                                |
++------------------------------------------------+---------------+
+|                                                |               |
+|  +------------+ +------------+ +------------+  |  SIDEBAR      |
+|  |  [Anh 1]   | |  [Anh 2]   | |  [Anh 3]   |  |               |
+|  +------------+ +------------+ +------------+  |  Gio mo cua:  |
+|  +------------+ +------------+ +------------+  |  T2-T6: 10-22h|
+|  |  [Anh 4]   | |  [Anh 5]   | |  [Anh 6]   |  |  T7-CN: 9-23h |
+|  +------------+ +------------+ +------------+  |               |
+|                                                |  Dia chi:     |
+|  +--------------------+  +------------------+  |  236 Tay Son  |
+|  | FORM DAT BAN       |  |                  |  |               |
+|  | +--------+-------+ |  |                  |  |  Danh gia:    |
+|  | | Ngay   | Gio   | |  |  GOOGLE MAPS     |  |  4.8/5 (320)  |
+|  | +--------+-------+ |  |                  |  |               |
+|  | | So nguoi       | |  |                  |  +---------------+
+|  | +-----------------+|  |                  |
+|  | | Ghi chu        | |  |                  |
+|  | |                | |  +------------------+
+|  | +-----------------+|
+|  | [ DAT BAN NGAY ]   |
+|  +--------------------+
++------------------------------------------------+
+|  Logo | Lien he | Chinh sach | MXH | © 2025   |
++----------------------------------------------------------------+
+```
+
+- Nav links: hiện đầy đủ (bỏ hamburger)
+- Sidebar: xuất hiện bên phải (giờ mở cửa, địa chỉ, đánh giá)
+- Form: Ngày + Giờ nằm cùng 1 hàng (2 input inline)
+- Footer: đa cột thay vì 1 cột
+
+# CSS skeleton
+
+```css
+/* ======================
+   MOBILE FIRST
+====================== */
+
+body {
+  margin: 0;
+}
+
+.container {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+/* Hero */
+.hero {
+  min-height: 300px;
+}
+
+/* Food grid */
+.food-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+/* Booking form */
+.booking-form {
+  display: grid;
+  gap: 10px;
+}
+
+/* Google map */
+.map iframe {
+  width: 100%;
+  height: 300px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+}
+
+/* ======================
+   TABLET
+====================== */
+
+@media (min-width: 768px) {
+  .food-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero {
+    min-height: 400px;
+  }
+}
+
+/* ======================
+   DESKTOP
+====================== */
+
+@media (min-width: 1024px) {
+  .content-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+  }
+
+  .food-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero {
+    min-height: 500px;
+  }
+}
+```
