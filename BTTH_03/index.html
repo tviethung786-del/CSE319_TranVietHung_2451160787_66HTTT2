@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản Lý Sinh Viên</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Quản Lý Sinh Viên</h1>
+
+  <!-- Thông báo -->
+  <div id="thongBao"></div>
+
+  <!-- Thống kê -->
+  <div id="thongKe">
+    <p>Tổng số sinh viên: <strong id="tongSV">0</strong></p>
+    <p>Điểm trung bình lớp: <strong id="diemTB">0</strong></p>
+  </div>
+
+  <!-- Nút mở form -->
+  <button id="btnMoForm" onclick="moFormThem()">+ Thêm sinh viên</button>
+
+  <!-- Bảng danh sách -->
+  <table>
+    <thead>
+      <tr>
+        <th>Mã SV</th>
+        <th>Họ và tên</th>
+        <th>Ngày sinh</th>
+        <th>Lớp</th>
+        <th>Điểm TB</th>
+        <th>Email</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody id="bangSinhVien">
+      <!-- JS sẽ render vào đây -->
+    </tbody>
+  </table>
+
+  <!-- Overlay mờ phía sau popup -->
+  <div id="overlay" onclick="dongForm()"></div>
+
+  <!-- Popup form thêm/sửa -->
+  <div id="popupForm">
+    <h2 id="tieuDeForm">Thêm sinh viên mới</h2>
+
+    <label>Mã sinh viên *</label>
+    <input type="text" id="inputMaSV" placeholder="VD: SV001">
+
+    <label>Họ và tên *</label>
+    <input type="text" id="inputHoTen" placeholder="VD: Nguyễn Văn A">
+
+    <label>Ngày sinh *</label>
+    <input type="date" id="inputNgaySinh">
+
+    <label>Lớp *</label>
+    <select id="inputLop">
+      <option value="">-- Chọn lớp --</option>
+      <option>CNTT1</option>
+      <option>CNTT2</option>
+      <option>KTPM1</option>
+      <option>KTPM2</option>
+      <option>HTTT1</option>
+    </select>
+
+    <label>Điểm trung bình *</label>
+    <input type="number" id="inputDiem" placeholder="0 - 10" min="0" max="10" step="0.1">
+
+    <label>Email</label>
+    <input type="email" id="inputEmail" placeholder="VD: sv@gmail.com">
+
+    <div class="form-buttons">
+      <button id="btnHuy" onclick="dongForm()">Hủy</button>
+      <button id="btnLuu" onclick="luuSinhVien()">Lưu</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
