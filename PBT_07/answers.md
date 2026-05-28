@@ -142,3 +142,85 @@ if (value == null) { ... }
 // Kiểm tra cả null lẫn undefined cùng lúc
 // Tương đương: value === null || value === undefined
 ```
+
+# Câu A4 — Truthy & Falsy
+
+## Tất cả giá trị Falsy trong JavaScript
+
+JavaScript chỉ có đúng **7 giá trị Falsy**:
+
+| Giá trị | Kiểu |
+|---------|------|
+| `false` | boolean |
+| `0` | number |
+| `-0` | number |
+| `0n` | bigint |
+| `""` | string (chuỗi rỗng) |
+| `null` | null |
+| `undefined` | undefined |
+| `NaN` | number |
+
+> Tất cả giá trị còn lại đều là **Truthy** — kể cả `"0"`, `[]`, `{}`, `-1`.
+
+---
+
+## Dự đoán kết quả từng dòng
+
+| Dòng code | In hay không? | Giải thích |
+|-----------|---------------|------------|
+| `if ("0") console.log("A")` | ✅ **In "A"** | `"0"` là string có nội dung → Truthy |
+| `if ("") console.log("B")` | ❌ **Không in** | `""` chuỗi rỗng → Falsy |
+| `if ([]) console.log("C")` | ✅ **In "C"** | `[]` array rỗng → Truthy |
+| `if ({}) console.log("D")` | ✅ **In "D"** | `{}` object rỗng → Truthy |
+| `if (null) console.log("E")` | ❌ **Không in** | `null` → Falsy |
+| `if (0) console.log("F")` | ❌ **Không in** | `0` → Falsy |
+| `if (-1) console.log("G")` | ✅ **In "G"** | `-1` khác 0 → Truthy |
+| `if (" ") console.log("H")` | ✅ **In "H"** | `" "` có dấu cách → string có nội dung → Truthy |
+
+**Kết quả cuối:** In ra `A`, `C`, `D`, `G`, `H`
+
+---
+
+# Câu A5 — Template Literals
+
+## Viết lại bằng template literal (backtick)
+
+### Cách 1
+```js
+// Cách cũ
+var greeting = "Xin chào " + name + "! Bạn " + age + " tuổi.";
+
+// Template literal
+var greeting = `Xin chào ${name}! Bạn ${age} tuổi.`;
+```
+
+### Cách 2
+```js
+// Cách cũ
+var url = "https://api.example.com/users/" + userId + "/orders?page=" + page;
+
+// Template literal
+var url = `https://api.example.com/users/${userId}/orders?page=${page}`;
+```
+
+### Cách 3
+```js
+// Cách cũ
+var html = "<div class=\"card\">" +
+    "<h2>" + title + "</h2>" +
+    "<p>" + description + "</p>" +
+    "<span>Giá: " + price + "đ</span>" +
+    "</div>";
+
+// Template literal
+var html = `<div class="card">
+    <h2>${title}</h2>
+    <p>${description}</p>
+    <span>Giá: ${price}đ</span>
+</div>`;
+```
+
+> **Lợi ích của template literal:**
+> - Không cần dấu `+` và dấu `"` lồng nhau
+> - Viết HTML nhiều dòng trực tiếp, dễ đọc
+> - Dùng `${}` để nhúng biến hoặc biểu thức bất kỳ
