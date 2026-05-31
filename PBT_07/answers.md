@@ -224,3 +224,56 @@ var html = `<div class="card">
 > - Không cần dấu `+` và dấu `"` lồng nhau
 > - Viết HTML nhiều dòng trực tiếp, dễ đọc
 > - Dùng `${}` để nhúng biến hoặc biểu thức bất kỳ
+
+
+# Phần C: Suy luận
+
+## Câu C1 — Debug JavaScript
+
+| #   | Vị trí                           | Lỗi                                           | Sửa                                     |
+| --- | -------------------------------- | --------------------------------------------- | --------------------------------------- |
+| 1   | `tinhGiaGiamGia("100000", 20)`   | truyền string thay vì number → tính ra `NaN`  | truyền `100000` hoặc validate trong hàm |
+| 2   | `var giamGia`                    | dùng `var`                                    | đổi thành `const`                       |
+| 3   | `let giaSauGiam`                 | không cần gán lại                             | đổi thành `const`                       |
+| 4   | `if (giaSauGiam = 0)`            | `=` là gán chứ không phải so sánh, luôn falsy | đổi thành `===`                         |
+| 5   | thiếu validate `giaBan`          | không kiểm tra input có phải số không         | thêm `typeof giaBan !== "number"`       |
+| 6   | `for (var i ...)` + `setTimeout` | lỗi closure ẩn                                | đổi `var` thành `let`                   |
+
+- Code sau khi sửa
+
+```js
+function tinhGiaGiamGia(giaBan, phanTramGiam) {
+  if (typeof giaBan !== "number" || isNaN(giaBan)) {
+    return "Giá bán không hợp lệ";
+  }
+
+  if (phanTramGiam < 0 || phanTramGiam > 100) {
+    return "Phần trăm giảm không hợp lệ";
+  }
+
+  const giamGia = (giaBan * phanTramGiam) / 100;
+  const giaSauGiam = giaBan - giamGia;
+
+  if (giaSauGiam === 0) {
+    console.log("Sản phẩm miễn phí!");
+  }
+
+  return giaSauGiam;
+}
+
+const gia = tinhGiaGiamGia(100000, 20);
+console.log("Giá sau giảm: " + gia + "đ");
+
+const gia2 = tinhGiaGiamGia(50000, 110);
+console.log("Giá: " + gia2);
+
+for (let i = 0; i < 5; i++) {
+  setTimeout(function () {
+    console.log("Item " + i);
+  }, 1000);
+}
+```
+
+`var` có function scope nên chỉ có một biến `i` duy nhất dùng chung cho cả 5 callback. Khi setTimeout chạy sau 1 giây, vòng lặp đã xong và `i = 5` rồi → cả 5 đều in `Item 5`.
+
+Dùng `let` thì mỗi lần lặp tạo ra một `i` riêng, callback nhớ đúng giá trị của lần lặp đó.
